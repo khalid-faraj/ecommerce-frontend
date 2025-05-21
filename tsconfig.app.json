@@ -46,6 +46,9 @@
       "@services/*": [
         "src/services/*"
       ],
+      "@customTypes/*": [
+        "src/types/*"
+      ],
     },
     /* Bundler mode */
     "moduleResolution": "bundler",
