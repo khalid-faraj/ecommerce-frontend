@@ -1,13 +1,18 @@
-
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { actGetCategories } from "@store/categories/categoriesSlice";
-import { Container, Row, Col } from "react-bootstrap";
 import Category from "@components/eCommerce/Category/Category";
-
+import GridList from "@components/common/GridList/GridList";
+import { Loading } from "@components/feedback";
+export type TCategory = {
+  id?: number;
+  title: string;
+  prefix: string;
+  img: string;
+};
 const Categories = () => {
   const dispatch = useAppDispatch();
-  const { records } = useAppSelector(
+  const { loading, error, records } = useAppSelector(
     (state) => state.categories
   );
 
@@ -17,23 +22,13 @@ const Categories = () => {
     }
   }, [dispatch, records]);
 
-  const categoriesList =
-    records.length > 0
-      ? records.map((record) => (
-          <Col
-            xs={3}
-            key={record.id}
-            className="d-flex justify-content-center mb-5 mt-2"
-          >
-            <Category {...record} />
-          </Col>
-        ))
-      : "there are no categories";
-
   return (
-    <Container>
-      <Row>{categoriesList}</Row>
-    </Container>
+    <Loading loading={loading} error={error}>
+      <GridList<TCategory>
+        records={records}
+        renderItem={(record) => <Category {...record} />}
+      />
+    </Loading>
   );
 };
 

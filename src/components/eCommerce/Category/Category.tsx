@@ -1,20 +1,17 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 const { category, categoryImg, categoryTitle } = styles;
-
-interface ICategory {
-   
+export type TCategory = {
   id?: number;
   title: string;
-  cat_prefix: string;
+  prefix: string;
   img: string;
+};
 
-}
-
-const Category = ({ title, img, cat_prefix }: ICategory) => {
+const Category = ({ title, img, prefix }: TCategory) => {
   return (
     <div className={category}>
-      <Link to={`/categories/products/${cat_prefix}`}>
+      <Link to={`/categories/products/${prefix}`}>
         <div className={categoryImg}>
           <img src={img} alt={title} />
         </div>
